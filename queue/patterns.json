@@ -1,0 +1,74 @@
+{
+  "patterns": [
+    {
+      "name": "semantic-chunking",
+      "description": "Smart document chunking with overlap and semantic boundaries",
+      "difficulty": "beginner",
+      "key_concepts": ["embeddings", "cosine similarity", "chunking strategies"],
+      "status": "pending"
+    },
+    {
+      "name": "hyde-search",
+      "description": "Hypothetical Document Embeddings for better retrieval",
+      "difficulty": "intermediate",
+      "key_concepts": ["query expansion", "embedding space", "synthetic documents"],
+      "status": "pending"
+    },
+    {
+      "name": "parent-child-retrieval",
+      "description": "Store small chunks, retrieve with parent context",
+      "difficulty": "intermediate",
+      "key_concepts": ["context windows", "hierarchical retrieval", "chunking"],
+      "status": "pending"
+    },
+    {
+      "name": "query-decomposition",
+      "description": "Break complex queries into focused sub-queries",
+      "difficulty": "intermediate",
+      "key_concepts": ["query parsing", "multi-retrieval", "synthesis"],
+      "status": "pending"
+    },
+    {
+      "name": "re-ranking",
+      "description": "Two-stage retrieval with cross-encoder re-ranking",
+      "difficulty": "advanced",
+      "key_concepts": ["bi-encoder", "cross-encoder", "precision vs recall"],
+      "status": "pending"
+    },
+    {
+      "name": "metadata-filtering",
+      "description": "Pre-filter with metadata before vector search",
+      "difficulty": "beginner",
+      "key_concepts": ["structured search", "hybrid queries", "filters"],
+      "status": "pending"
+    },
+    {
+      "name": "ensemble-retrieval",
+      "description": "Combine BM25 + vector search",
+      "difficulty": "intermediate",
+      "key_concepts": ["BM25", "sparse retrieval", "hybrid search", "fusion"],
+      "status": "pending"
+    },
+    {
+      "name": "recursive-retrieval",
+      "description": "Multi-hop retrieval for complex questions",
+      "difficulty": "advanced",
+      "key_concepts": ["reasoning chains", "iterative retrieval", "context building"],
+      "status": "pending"
+    },
+    {
+      "name": "agentic-rag",
+      "description": "LLM decides when to retrieve more context",
+      "difficulty": "advanced",
+      "key_concepts": ["agents", "tool use", "dynamic retrieval"],
+      "status": "pending"
+    },
+    {
+      "name": "self-query",
+      "description": "LLM extracts structured filters from natural language",
+      "difficulty": "intermediate",
+      "key_concepts": ["query parsing", "structured extraction", "metadata"],
+      "status": "pending"
+    }
+  ]
+}

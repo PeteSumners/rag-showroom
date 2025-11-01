@@ -1,0 +1,69 @@
+name: Daily RAG Showcase
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # 9 AM UTC daily
+  workflow_dispatch:      # Manual trigger
+
+jobs:
+  build-and-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install Node dependencies
+        run: |
+          npm install
+          npx playwright install chromium
+
+      - name: Select RAG pattern
+        run: python scripts/generate_demo.py
+
+      - name: Build demo with Claude API
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/build_demo.py
+
+      - name: Test demo
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/test_demo.py
+
+      - name: Capture screenshots
+        run: node scripts/capture_screenshots.js
+
+      - name: Generate technical breakdown
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python scripts/write_breakdown.py
+
+      - name: Post to LinkedIn
+        env:
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_URN: ${{ secrets.LINKEDIN_URN }}
+        run: python scripts/post_linkedin.py
+
+      - name: Commit and push demo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add demos/ outputs/ queue/
+          git diff --staged --quiet || git commit -m "feat: add $(date +%Y-%m-%d) RAG showcase"
+          git push
