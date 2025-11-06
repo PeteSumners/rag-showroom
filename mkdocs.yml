@@ -92,6 +92,10 @@ nav:
   - Guides:
       - Choosing a Pattern: guides/choosing-pattern.md
       - Pattern Comparison: guides/comparison.md
+      - Production Integration: guides/production-integration.md
+  - Resources:
+      - Glossary: resources/glossary.md
   - About:
+      - Project Overview: about/project-overview.md
       - Contributing: about/contributing.md
       - License: about/license.md

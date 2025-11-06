@@ -1,8 +1,16 @@
 # 🎓 RAG Patterns Guide
 
+[![Build Status](https://github.com/PeteSumners/rag-showroom/workflows/Deploy%20Documentation/badge.svg)](https://github.com/PeteSumners/rag-showroom/actions)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![Documentation](https://img.shields.io/badge/docs-live-brightgreen.svg)](https://petesumners.github.io/rag-showroom/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 > **A comprehensive visual guide to production RAG patterns**
 
 Learn Retrieval-Augmented Generation (RAG) patterns through clear conceptual explanations, working code examples, and visual diagrams. Each pattern demonstrates a real-world technique used in production AI systems.
+
+🌐 **[View Documentation Site](https://petesumners.github.io/rag-showroom/)** | 📖 **[Read the Guide](https://petesumners.github.io/rag-showroom/getting-started/installation/)**
 
 ## 🎯 What You'll Learn
 
