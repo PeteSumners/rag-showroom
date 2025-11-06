@@ -11,6 +11,20 @@ Semantic chunking analyzes document structure to find natural breaking points—
 !!! tip "Key Insight"
     A 300-character chunk about one topic is more useful than a 500-character chunk that mixes two unrelated topics.
 
+## What You'll Learn
+
+By the end of this pattern, you'll be able to:
+
+- ✅ Implement semantic chunking with similarity thresholds
+- ✅ Understand when to use semantic vs fixed-size chunking
+- ✅ Calculate and interpret cosine similarity between text
+- ✅ Tune chunk boundaries for your specific use case
+- ✅ Measure chunking quality (context preservation, chunk size distribution)
+
+**Time to competency:** 2-3 hours
+**Prerequisites:** Basic Python, understanding of text processing
+**Difficulty:** Beginner
+
 ## Live Demo Output
 
 Here's what the example produces:

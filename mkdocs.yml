@@ -95,11 +95,13 @@ nav:
       - Choosing a Pattern: guides/choosing-pattern.md
       - Pattern Comparison: guides/comparison.md
       - Production Integration: guides/production-integration.md
+      - Quick Wins: guides/quick-wins.md
   - Tools:
       - Cost Calculator: tools/cost-calculator.md
   - Showcase:
       - Why It Matters: showcase/why-it-matters.md
   - Resources:
+      - FAQ: resources/faq.md
       - Glossary: resources/glossary.md
   - About:
       - Project Overview: about/project-overview.md

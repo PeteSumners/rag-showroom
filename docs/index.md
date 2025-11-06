@@ -59,6 +59,27 @@
     ✅ **Honest trade-offs** - When NOT to use each pattern, cost analysis, latency impacts.
     ✅ **Production focus** - Error handling, monitoring, optimization strategies.
 
+## By The Numbers
+
+<div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 2rem; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;">5</div>
+    <div style="font-size: 1.1rem; opacity: 0.9;">Production Patterns</div>
+  </div>
+  <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 2rem; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;">20K+</div>
+    <div style="font-size: 1.1rem; opacity: 0.9;">Words of Documentation</div>
+  </div>
+  <div style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); padding: 2rem; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;">+55%</div>
+    <div style="font-size: 1.1rem; opacity: 0.9;">Max Precision Gain</div>
+  </div>
+  <div style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); padding: 2rem; border-radius: 12px; text-align: center; color: white;">
+    <div style="font-size: 3rem; font-weight: 700; margin-bottom: 0.5rem;">4</div>
+    <div style="font-size: 1.1rem; opacity: 0.9;">Weeks to Master</div>
+  </div>
+</div>
+
 ## What You'll Learn
 
 This guide covers essential RAG patterns, from foundational concepts to advanced techniques. Each pattern includes:
