@@ -1,11 +1,11 @@
 site_name: RAG Patterns Guide
 site_description: A comprehensive visual guide to production RAG patterns with working code examples
 site_author: Pete S
-site_url: https://yourusername.github.io/rag-patterns-guide
+site_url: https://petesumners.github.io/rag-showroom
 
-repo_name: yourusername/rag-patterns-guide
-repo_url: https://github.com/yourusername/rag-patterns-guide
-edit_uri: edit/main/docs/
+repo_name: PeteSumners/rag-showroom
+repo_url: https://github.com/PeteSumners/rag-showroom
+edit_uri: edit/master/docs/
 
 theme:
   name: material
@@ -70,9 +70,9 @@ plugins:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourusername
+      link: https://github.com/PeteSumners
     - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/yourprofile
+      link: https://linkedin.com/in/pete-sumners
 
 nav:
   - Home: index.md
