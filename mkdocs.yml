@@ -1,0 +1,97 @@
+site_name: RAG Patterns Guide
+site_description: A comprehensive visual guide to production RAG patterns with working code examples
+site_author: Pete S
+site_url: https://yourusername.github.io/rag-patterns-guide
+
+repo_name: yourusername/rag-patterns-guide
+repo_url: https://github.com/yourusername/rag-patterns-guide
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
+  - pymdownx.details
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+plugins:
+  - search
+  - glightbox
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/yourusername
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/yourprofile
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+      - Running Examples: getting-started/running-examples.md
+  - Patterns:
+      - Overview: patterns/overview.md
+      - Beginner:
+          - Semantic Chunking: patterns/01-semantic-chunking.md
+          - Re-ranking: patterns/03-reranking.md
+          - Metadata Filtering: patterns/04-metadata-filtering.md
+      - Intermediate:
+          - HyDE: patterns/02-hyde.md
+          - Query Decomposition: patterns/05-query-decomposition.md
+  - Guides:
+      - Choosing a Pattern: guides/choosing-pattern.md
+      - Pattern Comparison: guides/comparison.md
+  - About:
+      - Contributing: about/contributing.md
+      - License: about/license.md

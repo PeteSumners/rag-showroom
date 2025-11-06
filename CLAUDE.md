@@ -4,156 +4,212 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an automated RAG (Retrieval-Augmented Generation) pattern showcase system that builds, tests, and posts daily demonstrations of production-quality RAG implementations to LinkedIn. Each demo uses multicolored ASCII art for terminal visualization.
+This is an educational tutorial repository that teaches RAG (Retrieval-Augmented Generation) patterns through conceptual explanations, simple code examples, and visual diagrams. The goal is to create a high-quality reference resource that developers can learn from and adapt for their own projects.
 
-**Current State:** Repository is in initial setup phase. Only README.md exists; implementation needs to be built from scratch.
+**Current State:** Repository has been restructured from automation system to static tutorial. README.md is updated. Need to build out pattern examples following the new structure.
 
-## Architecture
+## Repository Purpose
 
-The system follows a pipeline architecture with distinct stages:
+This is a **static educational resource**, NOT an automation system. The focus is:
 
-1. **Pattern Selection** (`scripts/generate_demo.py`) - Reads from `queue/patterns.json`, selects next pattern, generates Claude Code prompt
-2. **Demo Building** (`scripts/build_demo.sh`) - Invokes Claude Code in headless mode to implement the RAG pattern
-3. **Testing** (`scripts/test_demo.py`) - Runs pytest tests, captures colored ASCII output
-4. **Screenshot Capture** (`scripts/capture_screenshots.js`) - Uses Playwright to screenshot terminal output
-5. **Technical Writing** (`scripts/write_breakdown.py`) - Uses Claude API to generate technical breakdown
-6. **LinkedIn Posting** (`scripts/post_linkedin.py`) - Posts via LinkedIn API
-
-GitHub Actions orchestrates the entire pipeline daily at 9 AM UTC via `.github/workflows/daily-showcase.yml`.
+- Clear conceptual explanations of RAG patterns
+- Simple, runnable code examples to illustrate concepts
+- Visual diagrams (ASCII art + mermaid) to aid understanding
+- Beginner-to-advanced learning path
+- Production-quality patterns that developers can reference
 
 ## Directory Structure
 
 ```
-demos/                      # Individual RAG pattern implementations
-  ├── {pattern-name}/      # Each pattern is self-contained
-  │   ├── demo.py          # Main implementation
-  │   ├── test_demo.py     # Tests with ASCII output capture
-  │   └── requirements.txt # Pattern-specific dependencies
-queue/
-  └── patterns.json        # Queue of patterns to implement
-scripts/                   # Pipeline automation scripts
-outputs/
-  └── YYYY-MM-DD/         # Daily outputs (demos, screenshots, posts)
+rag-patterns-guide/
+├── patterns/
+│   ├── 01-semantic-chunking/
+│   │   ├── README.md              # Concept explanation + architecture diagram
+│   │   ├── example.py             # Simple working implementation
+│   │   └── test_example.py        # Test cases demonstrating behavior
+│   ├── 02-hyde/
+│   ├── 03-parent-child-retrieval/
+│   ├── 04-query-decomposition/
+│   ├── 05-reranking/
+│   ├── 06-metadata-filtering/
+│   ├── 07-ensemble-retrieval/
+│   └── 08-recursive-retrieval/
+├── demos/
+│   └── semantic-chunking/         # Existing fuller demo (can be kept as reference)
+├── requirements.txt               # Shared dependencies
+├── README.md                      # Tutorial landing page
+└── CLAUDE.md                      # This file
 ```
 
-## Key Technical Requirements
+## Pattern Structure
 
-### ASCII Art Output
-All demo implementations MUST use the `rich` library for colored terminal output:
-- Queries: cyan panels
-- Results: green panels
-- LLM output: yellow panels
-- Errors: red panels
+Each pattern directory (`patterns/XX-pattern-name/`) should contain:
 
-Example pattern (from README.md:257-275):
+### 1. README.md
+The conceptual guide with:
+- **Problem Statement** (2-3 sentences) - What challenge does this solve?
+- **How It Works** (1-2 paragraphs) - Core concept explanation
+- **Architecture Diagram** (mermaid) - Visual representation of data flow
+- **When to Use** (bullet points) - Real-world scenarios
+- **Trade-offs** (bullet points) - Performance, complexity, cost considerations
+- **Code Example** (snippet) - Key parts of implementation with explanation
+- **Running the Example** (commands) - How to test it locally
+- **Further Reading** (links) - Papers, blog posts, related resources
+
+### 2. example.py
+Simple, focused implementation:
+- Minimal dependencies (prefer standard RAG libraries)
+- Well-commented explaining engineering decisions
+- Uses `rich` library for colored terminal output (cyan/green/yellow/red)
+- Demonstrates ONE concept clearly
+- Runnable with simple command: `python example.py`
+- ~100-200 lines max (keep it focused)
+
+### 3. test_example.py
+Test cases showing:
+- Expected behavior with sample queries
+- Edge cases
+- ASCII output validation (if relevant)
+- Can be run with: `pytest test_example.py -v`
+
+## Visual Standards
+
+### ASCII Art Output (using Rich library)
+
+All code examples should use colored terminal output:
+
 ```python
 from rich.console import Console
 from rich.panel import Panel
 
 console = Console()
-console.print(Panel("User query", title="📥 Input", border_style="cyan"))
+
+# Query input - CYAN
+console.print(Panel("User query here", title="📥 Input", border_style="cyan"))
+
+# Retrieval results - GREEN
 console.print(Panel("Retrieved docs", title="🔎 Results", border_style="green"))
+
+# LLM generation - YELLOW
 console.print(Panel("Generated answer", title="🧠 Output", border_style="yellow"))
+
+# Errors - RED
+console.print(Panel("Error details", title="❌ Error", border_style="red"))
 ```
 
-### Demo Implementation Standards
-Each demo in `demos/{pattern-name}/` should:
-- Be minimal and focused on teaching ONE concept
-- Include real working code (not stubs)
-- Use production-ready RAG patterns (LangChain/LlamaIndex)
-- Be fully tested with pytest
-- Output workflow visualization via ASCII art
-- Include inline comments explaining engineering decisions
+### Mermaid Diagrams
 
-### Pattern Queue Format
-`queue/patterns.json` structure (from README.md:109-126):
-```json
-{
-  "patterns": [
-    {
-      "name": "semantic-chunking",
-      "description": "Smart document chunking with overlap and semantic boundaries",
-      "difficulty": "beginner|intermediate|advanced",
-      "key_concepts": ["embeddings", "cosine similarity", "chunking strategies"]
-    }
-  ]
-}
+Each pattern README should include a mermaid architecture diagram showing:
+- Input (query)
+- Processing steps
+- Data flow
+- Output (answer)
+
+Example:
+```mermaid
+graph LR
+    A[Query] --> B[Process]
+    B --> C[Retrieve]
+    C --> D[Generate]
+    D --> E[Answer]
 ```
 
-## GitHub Actions Workflow
+## RAG Patterns to Implement
 
-The `.github/workflows/daily-showcase.yml` must:
-- Run on schedule (`cron: '0 9 * * *'`) and manual dispatch
-- Use secrets: `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `LINKEDIN_ACCESS_TOKEN`, `LINKEDIN_URN`
-- Execute pipeline stages sequentially
-- Commit generated demos back to repository
-- Handle failures gracefully (skip posting if tests fail)
+Priority order (8-10 patterns total):
 
-## LinkedIn Post Format
+1. **Semantic Chunking** (beginner) - Foundation of RAG systems
+2. **Metadata Filtering** (beginner) - Structured search basics
+3. **Re-ranking** (beginner) - Improving retrieval quality
+4. **HyDE** (intermediate) - Query expansion techniques
+5. **Parent-Child Retrieval** (intermediate) - Context optimization
+6. **Query Decomposition** (intermediate) - Handling complex queries
+7. **Ensemble Retrieval** (intermediate) - Hybrid search methods
+8. **Recursive Retrieval** (advanced) - Multi-hop reasoning
+9. **Agentic RAG** (advanced) - LLM-driven retrieval decisions
+10. **Self-Query** (intermediate) - Natural language to structured filters
 
-Posts follow this structure (from README.md:226-251):
-```
-[ASCII art screenshot]
+## Implementation Guidelines
 
-🔍 RAG Pattern #{number}: {Pattern Name}
+### Code Quality
+- Keep examples simple and focused (concept over complexity)
+- Use production RAG frameworks (LangChain, LlamaIndex)
+- Include inline comments explaining "why" not just "what"
+- Make examples self-contained and runnable
+- Use type hints for clarity
 
-{Hook/insight paragraph}
+### Writing Style
+- Explain concepts before showing code
+- Use clear, accessible language (avoid unnecessary jargon)
+- Include concrete examples and use cases
+- Highlight trade-offs and practical considerations
+- Link to further reading (papers, docs, tutorials)
 
-Key insight: {One-liner}
-
-🛠️ What it does:
-• {Bullet point 1}
-• {Bullet point 2}
-• {Bullet point 3}
-
-📊 Test results:
-• {Metric 1}
-• {Metric 2}
-• {Metric 3}
-
-Code + full breakdown: [GitHub link]
-
-#AI #MachineLearning #RAG #LLM #AIEngineering
-```
+### Testing
+- Include realistic test queries
+- Show expected behavior
+- Test edge cases
+- Validate ASCII output formatting (if applicable)
 
 ## Development Commands
 
-Since implementation doesn't exist yet, here are the intended commands once built:
-
 ```bash
-# Test full pipeline locally for a specific pattern
-./scripts/build_demo.sh {pattern-name}
-python scripts/test_demo.py demos/{pattern-name}
-node scripts/capture_screenshots.js demos/{pattern-name}
-python scripts/write_breakdown.py demos/{pattern-name}
+# Run a specific pattern example
+cd patterns/01-semantic-chunking
+python example.py
 
-# Run tests for a single demo
-cd demos/{pattern-name}
-pytest test_demo.py -v
+# Run tests for a pattern
+cd patterns/01-semantic-chunking
+pytest test_example.py -v
 
-# Manually trigger workflow (once GitHub Actions is set up)
-# Use GitHub UI: Actions → Daily RAG Showcase → Run workflow
+# Install all dependencies
+pip install -r requirements.txt
 ```
 
-## RAG Patterns Priority List
+## Tech Stack
 
-Suggested implementation order (from README.md:211-223):
-1. Semantic Chunking (beginner) - foundational
-2. HyDE (intermediate) - demonstrates query expansion
-3. Parent-Child Retrieval (intermediate) - context window optimization
-4. Query Decomposition (intermediate) - complex query handling
-5. Re-ranking (advanced) - two-stage retrieval
-6. Metadata Filtering (beginner) - structured search
-7. Ensemble Retrieval (intermediate) - hybrid search
-8. Recursive Retrieval (advanced) - multi-hop reasoning
-9. Agentic RAG (advanced) - LLM-driven retrieval
-10. Self-Query (intermediate) - natural language to filters
+- **Python 3.10+**
+- **RAG Frameworks:** LangChain, LlamaIndex
+- **Vector DBs:** ChromaDB (local), Pinecone, Weaviate
+- **LLMs:** OpenAI, Anthropic Claude
+- **Embeddings:** OpenAI, Sentence Transformers
+- **Visualization:** Rich (terminal), Mermaid (diagrams)
+- **Testing:** pytest
 
-## Implementation Notes
+## What NOT to Do
 
-- Each demo should be runnable standalone (self-contained dependencies)
-- Use virtual environments per demo to avoid dependency conflicts
-- Screenshots should capture full terminal output with colors preserved
-- Tests should verify both correctness AND ASCII art output formatting
-- Breakdowns should explain "why" (engineering decisions) not just "what" (code walkthrough)
-- LinkedIn posts must include actual metrics from test runs (not made up)
+- ❌ Don't build automation or CI/CD pipelines
+- ❌ Don't create LinkedIn posting functionality
+- ❌ Don't use GitHub Actions for automation
+- ❌ Don't make patterns overly complex
+- ❌ Don't skip conceptual explanations
+- ❌ Don't forget visual diagrams
+
+## What TO Do
+
+- ✅ Focus on clear concept explanations
+- ✅ Keep code examples simple and focused
+- ✅ Include visual diagrams (ASCII + mermaid)
+- ✅ Make everything runnable locally
+- ✅ Structure content for progressive learning
+- ✅ Highlight practical trade-offs
+- ✅ Link to further resources
+
+## Contributing Template
+
+When adding a new pattern:
+
+1. Create directory: `patterns/XX-pattern-name/`
+2. Write README.md with concept explanation + diagram
+3. Implement example.py with clear comments
+4. Add test_example.py with sample queries
+5. Update main README.md to link to new pattern
+6. Ensure all code is tested and runnable
+
+## Notes
+
+- This is a learning resource, not a production codebase
+- Prioritize clarity over completeness
+- Each pattern should teach ONE thing well
+- Visual aids are crucial for understanding
+- Examples should be minimal but working (no stubs)
