@@ -80,6 +80,8 @@ nav:
       - Installation: getting-started/installation.md
       - Quick Start: getting-started/quickstart.md
       - Running Examples: getting-started/running-examples.md
+  - Learning:
+      - Learning Roadmap: learning/roadmap.md
   - Patterns:
       - Overview: patterns/overview.md
       - Beginner:
@@ -93,6 +95,10 @@ nav:
       - Choosing a Pattern: guides/choosing-pattern.md
       - Pattern Comparison: guides/comparison.md
       - Production Integration: guides/production-integration.md
+  - Tools:
+      - Cost Calculator: tools/cost-calculator.md
+  - Showcase:
+      - Why It Matters: showcase/why-it-matters.md
   - Resources:
       - Glossary: resources/glossary.md
   - About:

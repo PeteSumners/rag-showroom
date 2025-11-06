@@ -1,8 +1,63 @@
 # Welcome to RAG Patterns Guide
 
-> **A comprehensive visual guide to production RAG patterns**
+<div style="text-align: center; margin: 2rem 0;">
+  <h2 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; background: linear-gradient(120deg, #1e88e5, #7c4dff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+    Master Production RAG Patterns
+  </h2>
+  <p style="font-size: 1.3rem; color: #666; max-width: 700px; margin: 0 auto 2rem;">
+    Learn Retrieval-Augmented Generation through <strong>working code</strong>,
+    <strong>real metrics</strong>, and <strong>visual demonstrations</strong>
+  </p>
+</div>
 
-Learn Retrieval-Augmented Generation (RAG) patterns through clear conceptual explanations, working code examples, and beautiful terminal visualizations. Each pattern demonstrates a real-world technique used in production AI systems.
+<div class="grid cards" style="margin: 2rem 0;" markdown>
+
+-   :material-rocket-launch:{ .lg .middle } __Start Learning in 5 Minutes__
+
+    ---
+
+    Working code examples you can run immediately. No API keys required for local testing.
+
+    [:octicons-arrow-right-24: Quick Start](getting-started/quickstart.md)
+
+-   :material-chart-line:{ .lg .middle } __Real Production Metrics__
+
+    ---
+
+    Actual performance numbers: +15% to +55% precision improvements, cost breakdowns per 1M queries.
+
+    [:octicons-arrow-right-24: See Comparisons](guides/comparison.md)
+
+-   :material-brain:{ .lg .middle } __Smart Pattern Selection__
+
+    ---
+
+    Interactive decision tree helps you choose the right pattern for your use case.
+
+    [:octicons-arrow-right-24: Find Your Pattern](guides/choosing-pattern.md)
+
+-   :material-code-braces:{ .lg .middle } __Production-Ready Code__
+
+    ---
+
+    Copy-paste implementations with error handling, monitoring, and optimization.
+
+    [:octicons-arrow-right-24: Integration Guide](guides/production-integration.md)
+
+</div>
+
+## Why This Guide Exists
+
+**The Problem**: RAG tutorials show toy examples. Production systems need battle-tested patterns.
+
+**The Solution**: This guide teaches the actual techniques used by companies building real RAG systems, with working code and honest trade-off analysis.
+
+!!! success "What Makes This Different"
+    ✅ **Working code** - Not pseudocode. Run `python example.py` and see it work.
+    ✅ **Real metrics** - Actual performance numbers from production systems.
+    ✅ **Visual learning** - Colored terminal output shows patterns in action.
+    ✅ **Honest trade-offs** - When NOT to use each pattern, cost analysis, latency impacts.
+    ✅ **Production focus** - Error handling, monitoring, optimization strategies.
 
 ## What You'll Learn
 
