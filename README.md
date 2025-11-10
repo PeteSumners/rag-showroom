@@ -103,16 +103,31 @@ Every pattern provides:
 - **Working Code:** All examples actually run - no pseudocode or broken imports
 - **4-Week Path:** Structured curriculum from beginner to production-ready
 
-### For Employers
+### For Employers & Job Seekers
 
-This project demonstrates:
+**This project demonstrates production-ready skills employers actually want:**
 
-- **Technical Writing:** 20,000+ words of clear, structured documentation
-- **Software Engineering:** Clean code architecture, working examples, proper testing
-- **RAG/LLM Expertise:** Deep understanding of production patterns, not just toy examples
-- **DevOps:** GitHub Actions automation, MkDocs deployment, CI/CD
-- **Educational Design:** Interactive tools (cost calculator), learning roadmaps, progressive complexity
-- **Research:** Real case studies, ROI analysis, comprehensive trade-off documentation
+**Technical Skills:**
+- **RAG/LLM Engineering:** Deep understanding of 5 production patterns with real-world trade-off analysis
+- **Python Development:** Clean, maintainable code with type hints, dataclasses, and proper abstractions
+- **Software Architecture:** Modular design patterns, separation of concerns, reusable components
+- **DevOps/CI/CD:** GitHub Actions automation, automated documentation deployment, version control best practices
+- **Technical Writing:** 5,700+ lines of clear documentation explaining complex concepts to diverse audiences
+
+**Business Impact:**
+- **ROI Analysis:** Documented case studies showing $900K-$2.3M cost savings and revenue gains
+- **Performance Metrics:** Real benchmarks (+15% to +55% precision improvements) from production systems
+- **Trade-off Evaluation:** Cost vs. quality analysis helping teams make informed architectural decisions
+- **Production Readiness:** Error handling, monitoring considerations, and scaling guidance
+
+**Relevant for Roles:**
+- ML Engineer / AI Engineer
+- Software Engineer (ML/AI teams)
+- RAG/LLM Engineer
+- Developer Advocate / Technical Writer
+- Solutions Architect (AI/ML)
+
+**See [PORTFOLIO.md](PORTFOLIO.md) for interview talking points and resume bullet points.**
 
 ### Real-World Impact
 
