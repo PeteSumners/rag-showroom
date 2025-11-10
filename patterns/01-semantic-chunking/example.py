@@ -98,44 +98,48 @@ class SemanticChunker:
         return len(intersection) / len(union)
 
 
-def create_rainbow_text(text: str) -> Text:
-    """Create rainbow gradient text - MAXIMUM FLAIR!"""
-    colors = ["red", "yellow", "green", "cyan", "blue", "magenta"]
-    rainbow = Text()
+def create_gradient_text(text: str, color1: str = "cyan", color2: str = "blue") -> Text:
+    """Create smooth gradient text - coherent and beautiful!"""
+    gradient = Text()
+    # Simple two-color gradient
+    mid = len(text) // 2
     for i, char in enumerate(text):
-        color = colors[i % len(colors)]
-        rainbow.append(char, style=f"bold {color}")
-    return rainbow
+        if i < mid:
+            color = color1
+        else:
+            color = color2
+        gradient.append(char, style=f"bold {color}")
+    return gradient
 
 
 def show_header():
-    """Epic rainbow header!"""
+    """Professional gradient header!"""
     console.print()
-    console.print(create_rainbow_text("=" * 70))
+    console.print("=" * 70, style="bold cyan")
 
     title = Text()
     title.append("  SEMANTIC CHUNKING ", style="bold white on blue")
-    title.append("- Smart Document Splitting!  ", style="bold white on magenta")
+    title.append("- Smart Document Splitting!  ", style="bold white on cyan")
     console.print(title)
 
-    console.print(create_rainbow_text("=" * 70))
+    console.print("=" * 70, style="bold blue")
     console.print()
 
 
 def show_concept():
-    """Explain the concept with visual pizzazz!"""
+    """Explain the concept with coherent colors!"""
     concept = Panel(
-        "[bold yellow]THE PROBLEM:[/bold yellow]\n"
-        "[red]Fixed-size chunking[/red] = Breaks mid-sentence = [bold red]Context DESTROYED![/bold red]\n\n"
+        "[bold red]THE PROBLEM:[/bold red]\n"
+        "[red]Fixed-size chunking[/red] breaks mid-sentence = [bold red]Context DESTROYED![/bold red]\n\n"
         "[bold green]THE SOLUTION:[/bold green]\n"
-        "[cyan]Semantic chunking[/cyan] = Breaks at topic shifts = [bold green]Context PRESERVED![/bold green]\n\n"
-        "[bold magenta]HOW IT WORKS:[/bold magenta]\n"
-        "  [yellow]1.[/yellow] Analyze sentence similarity\n"
-        "  [yellow]2.[/yellow] Detect topic boundaries\n"
-        "  [yellow]3.[/yellow] Create intelligent chunks\n"
-        "  [yellow]4.[/yellow] Profit! [bold green](+28% relevance!)[/bold green]",
+        "[cyan]Semantic chunking[/cyan] breaks at topic shifts = [bold green]Context PRESERVED![/bold green]\n\n"
+        "[bold cyan]HOW IT WORKS:[/bold cyan]\n"
+        "  [cyan]1.[/cyan] Analyze sentence similarity\n"
+        "  [cyan]2.[/cyan] Detect topic boundaries\n"
+        "  [cyan]3.[/cyan] Create intelligent chunks\n"
+        "  [cyan]4.[/cyan] Profit! [bold green](+28% relevance!)[/bold green]",
         title="[bold white on blue] CONCEPT [/bold white on blue]",
-        border_style="bright_magenta",
+        border_style="blue",
         box=box.DOUBLE
     )
     console.print(concept)
@@ -188,31 +192,31 @@ def show_processing(document: str, chunker: SemanticChunker):
 
 
 def show_chunk_tree(chunks: List[Chunk]):
-    """Display chunks as a colorful tree!"""
+    """Display chunks as a coherent tree!"""
     console.print("[bold cyan]>>> CHUNK HIERARCHY[/bold cyan]")
     console.print()
 
     tree = Tree(
         "[bold white on blue] Document Root [/bold white on blue]",
-        guide_style="bright_blue"
+        guide_style="cyan"
     )
 
-    colors = ["green", "yellow", "cyan", "magenta", "blue", "red"]
-
+    # Use cohesive blue-green gradient for chunks
     for chunk in chunks:
-        color = colors[chunk.id % len(colors)]
+        # Alternate between cyan and green for visual distinction
+        color = "cyan" if chunk.id % 2 == 0 else "green"
         chunk_node = tree.add(f"[bold {color}][Chunk {chunk.id}] Topic Segment[/bold {color}]")
 
         # Preview
         preview = chunk.text[:80] + "..." if len(chunk.text) > 80 else chunk.text
-        chunk_node.add(f"[dim]{preview}[/dim]")
+        chunk_node.add(f"[dim white]{preview}[/dim white]")
 
         # Stats
-        stats_node = chunk_node.add(f"[yellow]Stats[/yellow]")
-        stats_node.add(f"[cyan]Sentences: {chunk.sentence_count}[/cyan]")
-        stats_node.add(f"[cyan]Characters: {chunk.char_count}[/cyan]")
+        stats_node = chunk_node.add(f"[bold blue]Stats[/bold blue]")
+        stats_node.add(f"[white]Sentences: {chunk.sentence_count}[/white]")
+        stats_node.add(f"[white]Characters: {chunk.char_count}[/white]")
         if chunk.similarity_score > 0:
-            score_color = "green" if chunk.similarity_score >= 0.3 else "red"
+            score_color = "green" if chunk.similarity_score >= 0.3 else "yellow"
             stats_node.add(f"[{score_color}]Similarity: {chunk.similarity_score:.3f}[/{score_color}]")
 
     console.print(tree)
@@ -225,10 +229,10 @@ def show_comparison_table():
     console.print()
 
     table = Table(
-        title="[bold magenta]Chunking Strategies Battle![/bold magenta]",
+        title="[bold blue]Chunking Strategies Comparison[/bold blue]",
         box=box.DOUBLE_EDGE,
-        header_style="bold white on dark_blue",
-        border_style="bright_cyan"
+        header_style="bold white on blue",
+        border_style="cyan"
     )
 
     table.add_column("Strategy", style="cyan", width=20)
@@ -290,19 +294,18 @@ def show_stats(chunks: List[Chunk]):
 
 
 def show_chunks_detailed(chunks: List[Chunk]):
-    """Show each chunk with colorful panels!"""
+    """Show each chunk with coherent styling!"""
     console.print("[bold cyan]>>> CHUNK DETAILS[/bold cyan]")
     console.print()
 
-    colors = ["green", "cyan", "magenta", "yellow", "blue"]
-
     for chunk in chunks:
-        color = colors[chunk.id % len(colors)]
+        # Alternate between cyan and green for coherence
+        color = "cyan" if chunk.id % 2 == 0 else "green"
         preview = chunk.text[:120] + "..." if len(chunk.text) > 120 else chunk.text
 
         header = Text()
         header.append(f"Chunk {chunk.id} ", style=f"bold {color}")
-        header.append(f"| {chunk.sentence_count} sentences | {chunk.char_count} chars", style="dim")
+        header.append(f"| {chunk.sentence_count} sentences | {chunk.char_count} chars", style="dim white")
 
         console.print(Panel(
             preview,
@@ -314,26 +317,21 @@ def show_chunks_detailed(chunks: List[Chunk]):
 
 
 def show_key_insight():
-    """Show the key insight with MAXIMUM IMPACT!"""
+    """Show the key insight with coherent styling!"""
     console.print("[bold cyan]>>> KEY INSIGHT[/bold cyan]")
     console.print()
 
-    insight_title = Text()
-    insight_title.append("*** ", style="bold yellow")
-    insight_title.append("THE SECRET SAUCE", style="bold white on magenta")
-    insight_title.append(" ***", style="bold yellow")
-
     insight = Panel(
-        "[bold cyan]Semantic chunking[/bold cyan] analyzes [yellow]content meaning[/yellow]\n"
+        "[bold cyan]Semantic chunking[/bold cyan] analyzes [bold blue]content meaning[/bold blue]\n"
         "instead of just [red]counting characters[/red].\n\n"
         "[bold white]Result:[/bold white]\n"
         "  [green]+[/green] Topics stay together\n"
         "  [green]+[/green] Context is preserved\n"
         "  [green]+[/green] Retrieval gets better\n"
-        "  [green]=[/green] [bold white on blue] +28% relevance improvement! [/bold white on blue]\n\n"
+        "  [green]=[/green] [bold white on green] +28% relevance improvement! [/bold white on green]\n\n"
         "[dim]Production systems use embeddings for even better results![/dim]",
-        title=insight_title,
-        border_style="bold magenta",
+        title="[bold white on cyan] KEY INSIGHT [/bold white on cyan]",
+        border_style="cyan",
         box=box.DOUBLE
     )
     console.print(insight)
@@ -341,15 +339,15 @@ def show_key_insight():
 
 
 def show_footer():
-    """Colorful footer!"""
-    console.print(create_rainbow_text("=" * 70))
+    """Clean professional footer!"""
+    console.print("=" * 70, style="bold blue")
 
     footer = Text()
-    footer.append("  *** Demo Complete! *** ", style="bold green")
-    footer.append("Try different thresholds for different results!", style="italic cyan")
+    footer.append("  Demo Complete! ", style="bold green")
+    footer.append("Try different thresholds for different results!", style="cyan")
     console.print(footer)
 
-    console.print(create_rainbow_text("=" * 70))
+    console.print("=" * 70, style="bold cyan")
     console.print()
 
 

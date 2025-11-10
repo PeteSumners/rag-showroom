@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Metadata Filtering Example
+Metadata Filtering Example - COLORFUL VERSION!
 
 Demonstrates pre-filtering documents with structured metadata before
 running vector search for better precision and speed.
@@ -9,10 +9,12 @@ running vector search for better precision and speed.
 from typing import List, Dict, Any, Tuple
 from dataclasses import dataclass
 from datetime import datetime
+from rich import box
 
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
 
 console = Console()
 
@@ -242,41 +244,62 @@ def visualize_results(query: str, filters: Dict[str, Any],
 
     console.print()
     console.print("[bold cyan]>>> USER QUERY[/bold cyan]")
-    console.print(Panel(query, border_style="cyan", padding=(0, 2)))
+    console.print(Panel(
+        query,
+        border_style="cyan",
+        box=box.ROUNDED,
+        padding=(0, 2)
+    ))
 
     console.print()
-    console.print("[bold yellow]>>> METADATA FILTERS[/bold yellow]")
-    filter_text = "\n".join([f"{k}: {v}" for k, v in filters.items()])
-    console.print(Panel(filter_text, border_style="yellow", padding=(0, 2)))
+    console.print("[bold blue]>>> METADATA FILTERS[/bold blue]")
+    filter_text = "\n".join([f"[cyan]{k}:[/cyan] [white]{v}[/white]" for k, v in filters.items()])
+    console.print(Panel(
+        filter_text,
+        border_style="blue",
+        box=box.ROUNDED,
+        padding=(0, 2)
+    ))
 
     # Unfiltered results
     console.print()
-    console.print("[bold red]>>> UNFILTERED SEARCH (Entire Database)[/bold red]")
-    table_unfiltered = Table(border_style="red", show_header=True, header_style="bold red")
-    table_unfiltered.add_column("Rank", width=6)
-    table_unfiltered.add_column("Document", width=35)
-    table_unfiltered.add_column("Version", width=8)
-    table_unfiltered.add_column("Score", width=10)
+    console.print("[bold yellow]>>> BASELINE: Unfiltered Search (Entire Database)[/bold yellow]")
+    table_unfiltered = Table(
+        border_style="yellow",
+        show_header=True,
+        header_style="bold white on dark_blue",
+        box=box.ROUNDED
+    )
+    table_unfiltered.add_column("Rank", width=6, style="cyan")
+    table_unfiltered.add_column("Document", width=35, style="white")
+    table_unfiltered.add_column("Version", width=8, style="yellow")
+    table_unfiltered.add_column("Score", width=10, style="yellow")
 
     for i, (doc, score) in enumerate(unfiltered_results, 1):
         version = doc.metadata.get("version", "N/A")
-        table_unfiltered.add_row(str(i), doc.title, version, f"{score:.4f}")
+        # Highlight deprecated/old versions in red
+        version_style = "[red]" if version in ["v1", "v2"] else ""
+        table_unfiltered.add_row(str(i), doc.title, f"{version_style}{version}", f"{score:.4f}")
 
     console.print(table_unfiltered)
 
     # Filtered candidates
     console.print()
-    console.print("[bold yellow]>>> STAGE 1: Metadata Filtering[/bold yellow]")
-    console.print(f"[dim]Filtered to {len(filtered_candidates)} documents matching criteria[/dim]")
+    console.print(f"[cyan]Stage 1 complete: Filtered to {len(filtered_candidates)} documents matching criteria...[/cyan]")
 
     # Filtered results
     console.print()
-    console.print("[bold green]>>> STAGE 2: Vector Search on Filtered Subset[/bold green]")
-    table_filtered = Table(border_style="green", show_header=True, header_style="bold green")
-    table_filtered.add_column("Rank", width=6)
-    table_filtered.add_column("Document", width=35)
-    table_filtered.add_column("Version", width=8)
-    table_filtered.add_column("Score", width=10)
+    console.print("[bold green]>>> FILTERED: Two-Stage Search (Metadata + Vector)[/bold green]")
+    table_filtered = Table(
+        border_style="green",
+        show_header=True,
+        header_style="bold white on dark_green",
+        box=box.ROUNDED
+    )
+    table_filtered.add_column("Rank", width=6, style="cyan")
+    table_filtered.add_column("Document", width=35, style="white")
+    table_filtered.add_column("Version", width=8, style="green")
+    table_filtered.add_column("Score", width=10, style="bold green")
 
     for i, (doc, score) in enumerate(filtered_results, 1):
         version = doc.metadata.get("version", "N/A")
@@ -286,24 +309,79 @@ def visualize_results(query: str, filters: Dict[str, Any],
 
     # Key insight
     console.print()
-    console.print("[bold yellow]>>> KEY INSIGHT[/bold yellow]")
+    console.print("[bold cyan]>>> KEY INSIGHT[/bold cyan]")
+
+    insight_title = Text()
+    insight_title.append("*** ", style="bold cyan")
+    insight_title.append("HARD CONSTRAINTS + SOFT SEARCH", style="bold white on cyan")
+    insight_title.append(" ***", style="bold cyan")
+
     console.print(Panel(
-        "[bold]Metadata filtering enforces hard constraints[/bold]\n"
-        "ensuring results meet specific criteria (version, date, language, etc.)",
-        border_style="yellow",
+        "[bold cyan]Metadata filtering enforces hard constraints[/bold cyan]\n\n"
+        "[yellow]Metadata:[/yellow] Must-have requirements (version, language, date)\n"
+        "[green]Vectors:[/green] Nice-to-have semantic similarity\n\n"
+        "[bold white]Result:[/bold white] [bold green]+40% precision for filtered queries![/bold green]\n\n"
+        "[dim]Production tip: Use metadata for filtering, vectors for ranking[/dim]",
+        title=insight_title,
+        border_style="cyan",
+        box=box.DOUBLE,
         padding=(1, 2)
     ))
+
+
+def show_header():
+    """Professional header with coherent colors!"""
+    console.print()
+    console.print("=" * 70, style="bold cyan")
+
+    title = Text()
+    title.append("  METADATA FILTERING ", style="bold white on blue")
+    title.append("- Structured Search  ", style="bold white on cyan")
+    console.print(title)
+
+    console.print("=" * 70, style="bold blue")
+    console.print()
+
+
+def show_concept():
+    """Explain the concept with coherent colors!"""
+    concept = Panel(
+        "[bold red]THE PROBLEM:[/bold red]\n"
+        "[red]Pure vector search[/red] can't enforce hard constraints = [bold red]Wrong versions/languages![/bold red]\n\n"
+        "[bold green]THE SOLUTION:[/bold green]\n"
+        "[cyan]Metadata filtering[/cyan] pre-filters by structured data = [bold green]Precise results![/bold green]\n\n"
+        "[bold cyan]HOW IT WORKS:[/bold cyan]\n"
+        "  [cyan]1.[/cyan] Filter by metadata first (version, language, etc.)\n"
+        "  [cyan]2.[/cyan] Run vector search on filtered subset\n"
+        "  [cyan]3.[/cyan] Guarantee results meet requirements\n"
+        "  [cyan]4.[/cyan] Profit! [bold green](+40% precision for filtered queries!)[/bold green]",
+        title="[bold white on blue] CONCEPT [/bold white on blue]",
+        border_style="blue",
+        box=box.DOUBLE
+    )
+    console.print(concept)
+    console.print()
+
+
+def show_footer():
+    """Clean professional footer!"""
+    console.print()
+    console.print("=" * 70, style="bold blue")
+
+    footer = Text()
+    footer.append("  Demo Complete! ", style="bold green")
+    footer.append("Metadata + vectors = structured search!", style="cyan")
+    console.print(footer)
+
+    console.print("=" * 70, style="bold cyan")
+    console.print()
 
 
 def main():
     """Run metadata filtering demo"""
 
-    # Header
-    console.print()
-    console.print("=" * 65, style="bold blue")
-    console.print("  METADATA FILTERING", style="bold blue")
-    console.print("=" * 65, style="bold blue")
-    console.print()
+    show_header()
+    show_concept()
 
     # Create knowledge base
     documents = create_sample_documents()
@@ -332,12 +410,12 @@ def main():
     # Display comparison
     visualize_results(query, filters, unfiltered_results, filtered_candidates, filtered_results)
 
-    console.print()
-    console.print("[green]Demo complete![/green]")
-    console.print()
+    show_footer()
+
     console.print("[dim]Try different filter combinations:[/dim]")
     console.print("[dim]  - version='v3', type='sdk'[/dim]")
     console.print("[dim]  - language='javascript', category='tutorial'[/dim]")
+    console.print()
 
 
 if __name__ == "__main__":

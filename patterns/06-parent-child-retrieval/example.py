@@ -52,46 +52,37 @@ CHILD_CHUNKS = [
 ]
 
 
-def create_rainbow_text(text: str) -> Text:
-    """Create rainbow gradient text"""
-    colors = ["red", "yellow", "green", "cyan", "blue", "magenta"]
-    rainbow = Text()
-    for i, char in enumerate(text):
-        color = colors[i % len(colors)]
-        rainbow.append(char, style=f"bold {color}")
-    return rainbow
 
 
 def show_header():
-    """Display colorful header"""
+    """Professional header with coherent colors!"""
     console.print()
+    console.print("=" * 70, style="bold cyan")
 
-    # Rainbow title
-    title = create_rainbow_text("=" * 65)
+    title = Text()
+    title.append("  PARENT-CHILD RETRIEVAL ", style="bold white on blue")
+    title.append("- Hierarchical Chunking  ", style="bold white on cyan")
     console.print(title)
 
-    header_text = Text("  PARENT-CHILD RETRIEVAL", style="bold white on blue")
-    console.print(header_text)
-
-    subtitle = Text("  Hierarchical Chunking for Better Context", style="italic cyan")
-    console.print(subtitle)
-
-    console.print(create_rainbow_text("=" * 65))
+    console.print("=" * 70, style="bold blue")
     console.print()
 
 
 def show_concept():
-    """Explain the concept with visual flair"""
+    """Explain the concept with coherent colors!"""
     concept_panel = Panel(
-        "[bold yellow]THE IDEA:[/bold yellow]\n\n"
-        "[green]Small chunks[/green] = Good for precise retrieval\n"
-        "[blue]Large chunks[/blue] = Good for context\n\n"
-        "[bold magenta]SOLUTION:[/bold magenta] Store both!\n"
-        "  [cyan]1.[/cyan] Search using [green]small child chunks[/green] (precise)\n"
-        "  [cyan]2.[/cyan] Return [blue]large parent docs[/blue] (context)\n"
-        "  [cyan]3.[/cyan] Get [bold yellow]best of both worlds![/bold yellow]",
-        title="[bold magenta]>>> Concept <<<[/bold magenta]",
-        border_style="bright_magenta",
+        "[bold red]THE PROBLEM:[/bold red]\n"
+        "[red]Small chunks[/red] = Precise but lack context\n"
+        "[red]Large chunks[/red] = Context but imprecise\n\n"
+        "[bold green]THE SOLUTION:[/bold green]\n"
+        "[cyan]Parent-Child retrieval[/cyan] uses both = [bold green]Precision + Context![/bold green]\n\n"
+        "[bold cyan]HOW IT WORKS:[/bold cyan]\n"
+        "  [cyan]1.[/cyan] Store small child chunks + large parent docs\n"
+        "  [cyan]2.[/cyan] Search using [green]child chunks[/green] (precise)\n"
+        "  [cyan]3.[/cyan] Return [blue]parent documents[/blue] (full context)\n"
+        "  [cyan]4.[/cyan] Profit! [bold green](+35% context completeness!)[/bold green]",
+        title="[bold white on blue] CONCEPT [/bold white on blue]",
+        border_style="blue",
         box=box.DOUBLE
     )
     console.print(concept_panel)
@@ -137,22 +128,22 @@ def show_hierarchy_tree():
     console.print()
 
     tree = Tree(
-        "[bold blue on white] Parent Document: doc_001 [/bold blue on white]",
-        guide_style="bright_blue"
+        "[bold white on blue] Parent Document: doc_001 [/bold white on blue]",
+        guide_style="cyan"
     )
 
-    # Add child chunks with different colors
-    child1 = tree.add("[bold green][*] Child Chunk 1: Overview[/bold green]")
-    child1.add("[dim]'Python\\'s asyncio module provides...'[/dim]")
-    child1.add("[yellow]Embedding: [0.23, 0.45, 0.78, ...][/yellow]")
+    # Add child chunks with alternating cyan/green for coherence
+    child1 = tree.add("[bold cyan][*] Child Chunk 1: Overview[/bold cyan]")
+    child1.add("[dim]'Python's asyncio module provides...'[/dim]")
+    child1.add("[white]Embedding: [0.23, 0.45, 0.78, ...][/white]")
 
-    child2 = tree.add("[bold cyan][*] Child Chunk 2: Event Loop[/bold cyan]")
+    child2 = tree.add("[bold green][*] Child Chunk 2: Event Loop[/bold green]")
     child2.add("[dim]'The asyncio event loop is the core...'[/dim]")
-    child2.add("[yellow]Embedding: [0.67, 0.12, 0.91, ...][/yellow]")
+    child2.add("[white]Embedding: [0.67, 0.12, 0.91, ...][/white]")
 
-    child3 = tree.add("[bold magenta][*] Child Chunk 3: Performance[/bold magenta]")
+    child3 = tree.add("[bold cyan][*] Child Chunk 3: Performance[/bold cyan]")
     child3.add("[dim]'Performance characteristics: asyncio excels...'[/dim]")
-    child3.add("[yellow]Embedding: [0.34, 0.89, 0.56, ...][/yellow]")
+    child3.add("[white]Embedding: [0.34, 0.89, 0.56, ...][/white]")
 
     console.print(tree)
     console.print()
@@ -192,22 +183,22 @@ def show_results():
 
     # Create results table
     table = Table(
-        title="[bold magenta]Search Results[/bold magenta]",
+        title="[bold blue]Search Results[/bold blue]",
         box=box.DOUBLE_EDGE,
-        header_style="bold white on blue",
-        border_style="bright_cyan"
+        header_style="bold white on dark_blue",
+        border_style="cyan"
     )
 
-    table.add_column("Step", style="cyan", justify="center")
-    table.add_column("What Matched", style="yellow")
-    table.add_column("What Was Returned", style="green")
-    table.add_column("Score", style="magenta", justify="right")
+    table.add_column("Step", style="cyan bold", justify="center")
+    table.add_column("What Matched", style="white")
+    table.add_column("What Was Returned", style="white")
+    table.add_column("Score", style="green bold", justify="right")
 
     table.add_row(
         "[bold]1[/bold]",
-        "[yellow]Child Chunk 3\n'Performance characteristics...'[/yellow]",
-        "[green]ENTIRE Parent Doc\n(includes all context!)[/green]",
-        "[bold magenta]0.94[/bold magenta]"
+        "[cyan]Child Chunk 3\n'Performance characteristics...'[/cyan]",
+        "[bold green]ENTIRE Parent Doc\n(includes all context!)[/bold green]",
+        "[bold green]0.94[/bold green]"
     )
 
     console.print(table)
@@ -220,13 +211,13 @@ def show_comparison():
     console.print()
 
     comparison_table = Table(
-        box=box.HEAVY_EDGE,
-        border_style="yellow",
+        box=box.ROUNDED,
+        border_style="cyan",
         show_header=True,
         header_style="bold white on dark_blue"
     )
 
-    comparison_table.add_column("Approach", style="cyan")
+    comparison_table.add_column("Approach", style="white")
     comparison_table.add_column("Precision", justify="center")
     comparison_table.add_column("Context", justify="center")
     comparison_table.add_column("Result", style="bold")
@@ -239,14 +230,14 @@ def show_comparison():
     )
 
     comparison_table.add_row(
-        "[blue]Large chunks only[/blue]",
+        "[yellow]Large chunks only[/yellow]",
         "[yellow]***[/yellow]",
         "[green]*****[/green]",
         "[yellow][!] Imprecise matches[/yellow]"
     )
 
     comparison_table.add_row(
-        "[bold magenta]Parent-Child (BEST!)[/bold magenta]",
+        "[bold green]Parent-Child (BEST!)[/bold green]",
         "[green]*****[/green]",
         "[green]*****[/green]",
         "[bold green][OK] Perfect![/bold green]"
@@ -257,21 +248,22 @@ def show_comparison():
 
 
 def show_key_insight():
-    """Show key insight with maximum visual impact"""
+    """Show key insight with coherent colors!"""
     insight_text = Text()
-    insight_text.append("*** ", style="bold yellow")
-    insight_text.append("KEY INSIGHT", style="bold white on magenta")
-    insight_text.append(" ***", style="bold yellow")
+    insight_text.append("*** ", style="bold cyan")
+    insight_text.append("KEY INSIGHT", style="bold white on cyan")
+    insight_text.append(" ***", style="bold cyan")
 
     insight_panel = Panel(
         "[bold cyan]Search with precision[/bold cyan] (child chunks)\n"
-        "[bold yellow]+[/bold yellow]\n"
+        "[bold white]+[/bold white]\n"
         "[bold green]Return with context[/bold green] (parent docs)\n"
-        "[bold magenta]=[/bold magenta]\n"
+        "[bold white]=[/bold white]\n"
         "[bold white on blue]  BEST OF BOTH WORLDS!  [/bold white on blue]\n\n"
-        "[dim]Result: +35% context completeness, no precision loss![/dim]",
+        "[bold white]Result:[/bold white] [bold green]+35% context completeness, no precision loss![/bold green]\n\n"
+        "[dim]Production tip: Store parent docs alongside child embeddings[/dim]",
         title=insight_text,
-        border_style="bold magenta",
+        border_style="cyan",
         box=box.DOUBLE
     )
     console.print(insight_panel)
@@ -279,16 +271,16 @@ def show_key_insight():
 
 
 def show_footer():
-    """Show colorful footer"""
-    footer = create_rainbow_text("=" * 65)
-    console.print(footer)
+    """Clean professional footer!"""
+    console.print()
+    console.print("=" * 70, style="bold blue")
 
     footer_text = Text()
-    footer_text.append("  *** Pattern Complete! *** ", style="bold green")
-    footer_text.append("Check the docs for production implementation ", style="italic cyan")
+    footer_text.append("  Demo Complete! ", style="bold green")
+    footer_text.append("Hierarchical chunking delivers precision + context!", style="cyan")
     console.print(footer_text)
 
-    console.print(create_rainbow_text("=" * 65))
+    console.print("=" * 70, style="bold cyan")
     console.print()
 
 

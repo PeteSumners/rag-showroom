@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Re-ranking Example
+Re-ranking Example - COLORFUL VERSION!
 
 Demonstrates two-stage retrieval: fast vector search for candidates,
 then precise re-ranking for the best results.
@@ -8,11 +8,13 @@ then precise re-ranking for the best results.
 
 from typing import List, Tuple
 from dataclasses import dataclass
+from rich import box
 
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
+from rich.tree import Tree
 
 console = Console()
 
@@ -226,33 +228,47 @@ def visualize_comparison(query: str, vector_results: List[Tuple[Document, float]
 
     console.print()
     console.print("[bold cyan]>>> USER QUERY[/bold cyan]")
-    console.print(Panel(query, border_style="cyan", padding=(0, 2)))
+    console.print(Panel(
+        query,
+        border_style="cyan",
+        box=box.ROUNDED,
+        padding=(0, 2)
+    ))
 
     # Vector-only results
     console.print()
-    console.print("[bold red]>>> VECTOR SEARCH ONLY (Baseline)[/bold red]")
-    table_vector = Table(border_style="red", show_header=True, header_style="bold red")
-    table_vector.add_column("Rank", width=6)
-    table_vector.add_column("Document", width=35)
-    table_vector.add_column("Vector Score", width=12)
+    console.print("[bold yellow]>>> STAGE 1: Vector Search (Baseline)[/bold yellow]")
+    table_vector = Table(
+        border_style="yellow",
+        show_header=True,
+        header_style="bold white on dark_blue",
+        box=box.ROUNDED
+    )
+    table_vector.add_column("Rank", width=6, style="cyan")
+    table_vector.add_column("Document", width=35, style="white")
+    table_vector.add_column("Vector Score", width=12, style="yellow")
 
     for i, (doc, score) in enumerate(vector_results, 1):
         table_vector.add_row(str(i), doc.title, f"{score:.4f}")
 
     console.print(table_vector)
 
-    # Candidates from Stage 1
+    # Candidates info
     console.print()
-    console.print("[bold yellow]>>> STAGE 1: Vector Candidates[/bold yellow]")
-    console.print(f"[dim]Retrieved {len(candidates)} candidates for re-ranking...[/dim]")
+    console.print(f"[cyan]Retrieved {len(candidates)} candidates for stage 2...[/cyan]")
 
     # Re-ranked results
     console.print()
-    console.print("[bold green]>>> STAGE 2: Re-ranked Results[/bold green]")
-    table_rerank = Table(border_style="green", show_header=True, header_style="bold green")
-    table_rerank.add_column("Rank", width=6)
-    table_rerank.add_column("Document", width=35)
-    table_rerank.add_column("Rerank Score", width=12)
+    console.print("[bold green]>>> STAGE 2: Re-ranked Results (Final)[/bold green]")
+    table_rerank = Table(
+        border_style="green",
+        show_header=True,
+        header_style="bold white on dark_green",
+        box=box.ROUNDED
+    )
+    table_rerank.add_column("Rank", width=6, style="cyan")
+    table_rerank.add_column("Document", width=35, style="white")
+    table_rerank.add_column("Rerank Score", width=12, style="bold green")
 
     for i, (doc, score) in enumerate(reranked_results, 1):
         table_rerank.add_row(str(i), doc.title, f"{score:.4f}")
@@ -261,24 +277,79 @@ def visualize_comparison(query: str, vector_results: List[Tuple[Document, float]
 
     # Key insight
     console.print()
-    console.print("[bold yellow]>>> KEY INSIGHT[/bold yellow]")
+    console.print("[bold cyan]>>> KEY INSIGHT[/bold cyan]")
+
+    insight_title = Text()
+    insight_title.append("*** ", style="bold cyan")
+    insight_title.append("THE POWER OF TWO STAGES", style="bold white on cyan")
+    insight_title.append(" ***", style="bold cyan")
+
     console.print(Panel(
-        "[bold]Re-ranking catches what vector search misses[/bold]\n"
-        "by using a more precise model to score query-document relevance.",
-        border_style="yellow",
+        "[bold cyan]Re-ranking catches what vector search misses[/bold cyan]\n\n"
+        "Vector search is [yellow]fast but approximate[/yellow]\n"
+        "Re-rankers are [green]slower but precise[/green]\n\n"
+        "[bold white]Result:[/bold white] [bold green]+15-25% accuracy improvement![/bold green]\n\n"
+        "[dim]Production tip: Use cross-encoders or LLMs for re-ranking[/dim]",
+        title=insight_title,
+        border_style="cyan",
+        box=box.DOUBLE,
         padding=(1, 2)
     ))
+
+
+def show_header():
+    """Professional header with coherent colors!"""
+    console.print()
+    console.print("=" * 70, style="bold cyan")
+
+    title = Text()
+    title.append("  RE-RANKING ", style="bold white on blue")
+    title.append("- Two-Stage Retrieval  ", style="bold white on cyan")
+    console.print(title)
+
+    console.print("=" * 70, style="bold blue")
+    console.print()
+
+
+def show_concept():
+    """Explain the concept with coherent colors!"""
+    concept = Panel(
+        "[bold red]THE PROBLEM:[/bold red]\n"
+        "[red]Vector search alone[/red] misses nuanced relevance = [bold red]Imprecise results![/bold red]\n\n"
+        "[bold green]THE SOLUTION:[/bold green]\n"
+        "[cyan]Two-stage retrieval[/cyan] combines speed + precision = [bold green]Better accuracy![/bold green]\n\n"
+        "[bold cyan]HOW IT WORKS:[/bold cyan]\n"
+        "  [cyan]1.[/cyan] Cast wide net with fast vector search\n"
+        "  [cyan]2.[/cyan] Re-rank candidates with precise model\n"
+        "  [cyan]3.[/cyan] Return only the best matches\n"
+        "  [cyan]4.[/cyan] Profit! [bold green](+15-25% accuracy!)[/bold green]",
+        title="[bold white on blue] CONCEPT [/bold white on blue]",
+        border_style="blue",
+        box=box.DOUBLE
+    )
+    console.print(concept)
+    console.print()
+
+
+def show_footer():
+    """Clean professional footer!"""
+    console.print()
+    console.print("=" * 70, style="bold blue")
+
+    footer = Text()
+    footer.append("  Demo Complete! ", style="bold green")
+    footer.append("Two-stage retrieval delivers precision!", style="cyan")
+    console.print(footer)
+
+    console.print("=" * 70, style="bold cyan")
+    console.print()
 
 
 def main():
     """Run re-ranking demo"""
 
-    # Header
-    console.print()
-    console.print("=" * 65, style="bold blue")
-    console.print("  RE-RANKING: TWO-STAGE RETRIEVAL", style="bold blue")
-    console.print("=" * 65, style="bold blue")
-    console.print()
+    show_header()
+    show_concept()
 
     # Create knowledge base
     documents = create_sample_documents()
@@ -300,12 +371,12 @@ def main():
     # Display comparison
     visualize_comparison(query, vector_results, candidates, reranked_results)
 
-    console.print()
-    console.print("[green]Demo complete![/green]")
-    console.print()
+    show_footer()
+
     console.print("[dim]Try different queries:[/dim]")
     console.print("[dim]  - 'What are vector databases?'[/dim]")
     console.print("[dim]  - 'How to evaluate RAG systems?'[/dim]")
+    console.print()
 
 
 if __name__ == "__main__":
